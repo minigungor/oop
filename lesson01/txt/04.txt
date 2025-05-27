@@ -1,0 +1,17 @@
+type
+    Student = record
+        firstName := string[30];
+        lastName := string[30];
+        birthDate := string[10];
+    end;
+
+var
+    student: Student;
+
+begin
+
+    student.firstName := 'Vasya';
+    student.lastName := 'Pumpkin';
+    student.birthDate := '1990-01-23';
+
+end;
