@@ -1,0 +1,38 @@
+<?php
+
+namespace lesson05\grasp\example09\demo02\index04;
+
+use Swift_Transport;
+use Swift_Mime_Message;
+use Swift_Events_EventListener;
+use Swift_Mailer;
+use Swift_Message;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+###############################################
+
+class EchoTransport implements Swift_Transport
+{
+    public function isStarted(){return true;}
+    public function start(){}
+    public function stop(){}
+
+    public function send(Swift_Mime_Message $message, &$failedRecipient = null)
+    {
+        echo 'Send: ' . $message->getSubject() . PHP_EOL;
+        return 1;
+    }
+
+    public function registerPlugin(Swift_Events_EventListener $plugin){}
+}
+
+$mailer = new Swift_Mailer(new EchoTransport());
+
+$message = Swift_Message::newInstance('Wonderful Subject')
+    ->setFrom(['siski_02@internet.ru' => 'Ivan gor'])
+    ->setTo(['siski_02@internet.ru' => 'Ivan gor'])
+    ->setBody('Here is the message itself')
+;
+
+$mailer->send($message);
